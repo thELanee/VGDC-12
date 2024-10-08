@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a034516ffa7bb104192089b91f910fbd, type: 3}
   m_Name: StatueS1N2
   m_EditorClassIdentifier: 
-  nextNode: {fileID: 0}
+  options: []
+  nextNode: {fileID: 11400000, guid: 64c96d525e0e8814fb8209951abc78cb, type: 2}
   pause: 0
-  dialogue: 
+  bookmark: 0
+  dialogue: I am a statue

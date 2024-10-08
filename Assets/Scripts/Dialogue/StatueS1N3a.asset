@@ -12,14 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a034516ffa7bb104192089b91f910fbd, type: 3}
   m_Name: StatueS1N3a
   m_EditorClassIdentifier: 
-  options:
-  - optionText: Why is the statue talking
-    nextNode: {fileID: 0}
-  - optionText: '*Throws a coin*'
-    nextNode: {fileID: 0}
-  - optionText: No fuck you
-    nextNode: {fileID: 0}
+  options: []
   nextNode: {fileID: 0}
   pause: 0
   bookmark: 0
-  dialogue: 
+  dialogue: ...

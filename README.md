@@ -4,7 +4,9 @@ How to create a dialogue tree:
 
 ![image](https://github.com/user-attachments/assets/0f540ded-535a-40c9-aadc-bee143c63c6c)
 
-Each NPC has a starting dialogue, dialogue button (found in Resources/UIElements), option button container (currently in scene hierarchy under Canvas), and dialog panel (also in scene hierarchu)
+Each NPC has a starting dialogue, dialogue button (found in Resources/UIElements), option button container (currently in scene hierarchy under Canvas), and dialog panel (also in scene hierarchy)
+
+Also, word speed can be changed, which is the speed at which text gets typed out into the dialogue box. Smaller number = faster.
 
 All these fields must be filled and you can do so by dragging those elements into the corresponding fields in the NPC script section
 

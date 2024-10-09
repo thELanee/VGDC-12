@@ -18,7 +18,7 @@ public class Player_movement : MonoBehaviour
     {
     }
 
-    void Update() 
+    void Update()
     {
         velocity = Vector2.zero;
         velocity.x = Input.GetAxisRaw("Horizontal");
@@ -29,4 +29,9 @@ public class Player_movement : MonoBehaviour
     {
         player.MovePosition(player.position + velocity * speed * Time.fixedDeltaTime);
     }
-}  
+
+    public void SetMovement(float movement)
+    {
+        speed = movement;
+    }
+}

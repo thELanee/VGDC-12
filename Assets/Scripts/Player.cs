@@ -7,7 +7,7 @@ public class Player_movement : MonoBehaviour
 
     // Just movement for now
 
-    // TODO: Let player sprint (Done I think...), lock player movement while in dialogue, make camera follow the player
+    // TODO: Let player sprint (Done I think...), lock player movement while in dialogue (TO DO), make camera follow the player (Done)
     //       Also need a walk cycle animation once we have a design for the protag (I don't think that has to be in code) (sprint and idle animation optional)
 
     public float speed = 5f;

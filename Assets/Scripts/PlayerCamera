@@ -3,10 +3,10 @@ using System.Collections;
 
 public class PlayerCamera : MonoBehaviour {
 
-public Transform Player;
+public Transform player;
  
  void Update ()  {
-     transform.position = Player.position;
+     transform.position = player.position;
  }
 
 }

@@ -11,8 +11,8 @@ public class Player_movement : MonoBehaviour
     //       Also need a walk cycle animation once we have a design for the protag (I don't think that has to be in code) (sprint and idle animation optional)
 
     public float speed = 5f;
-    public float sprint = 5f;
-    public float playerSpeed = 0f;
+    public float sprint = 10f;
+    public float playerSpeed;
     public Rigidbody2D player;
     public Animator playerAnimator;
 
@@ -25,7 +25,7 @@ public class Player_movement : MonoBehaviour
     void Update() 
     {
        
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             playerSpeed = speed + sprint;
         }
@@ -35,19 +35,19 @@ public class Player_movement : MonoBehaviour
         velocity.x = Input.GetAxisRaw("Horizontal");
         velocity.y = Input.GetAxisRaw("Vertical");
 
-        if (velocity != Vector2.zero) {
+       // if (velocity != Vector2.zero) {
         
-        playerAnimator.SetFloat("Horizontal", velocity.x);
-        playerAnimator.SetFloat("Vertical", velocity.y);
+        //playerAnimator.SetFloat("Horizontal", velocity.x);
+        //playerAnimator.SetFloat("Vertical", velocity.y);
 
     }
 
-    playerAnimator.SetFloat("Speed", velocity.sqrMagnitude);
+    //playerAnimator.SetFloat("Speed", velocity.sqrMagnitude);
     
-    }
+    //}
 
     void FixedUpdate()
     {
-        player.MovePosition(player.position + velocity * speed * Time.fixedDeltaTime);
+        player.MovePosition(player.position + velocity * playerSpeed * Time.fixedDeltaTime);
     }
 }  

@@ -18,7 +18,6 @@ public class Interactable : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public DialogueNode startNode;             // The dialogue we want to start from whenever the player interacts with the NPC
     protected DialogueNode currentDialogueNode;
-    public Player_movement playerMovement;
     public float wordSpeed;
     public bool playerIsClose;
     protected bool isTyping;

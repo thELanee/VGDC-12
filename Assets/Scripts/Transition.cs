@@ -9,6 +9,6 @@ public class Transition : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Swap to temp scene.");
-        SceneManager.LoadScene("TransitionSample");
+        SceneManager.LoadScene(SceneName);
     }
 }

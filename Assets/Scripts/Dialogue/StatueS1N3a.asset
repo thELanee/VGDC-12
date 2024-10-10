@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StatueS1N3a
   m_EditorClassIdentifier: 
   options: []
-  nextNode: {fileID: 0}
+  nextNode: {fileID: 11400000, guid: 51351e631ce1d0640868f590a5387016, type: 2}
   pause: 0
   bookmark: 0
   dialogue: ...

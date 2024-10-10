@@ -22,7 +22,7 @@ public class Player_movement : MonoBehaviour
     {
     }
 
-    void Update() 
+    void Update()
     {
        
         if (Input.GetKey(KeyCode.LeftShift))
@@ -50,4 +50,9 @@ public class Player_movement : MonoBehaviour
     {
         player.MovePosition(player.position + velocity * playerSpeed * Time.fixedDeltaTime);
     }
-}  
+
+    public void SetMovement(float movement)
+    {
+        speed = movement;
+    }
+}

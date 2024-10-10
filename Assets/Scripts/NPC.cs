@@ -11,10 +11,19 @@ using UnityEngine.UI;
 
 public class NPC : Interactable
 {
+    private DialogueManager dialogueManager;
     public string npcName;
     public Sprite npcPortrait;
     public TextMeshProUGUI npcNameText;
     public Image npcImageUI;
+
+
+    protected override void Start()
+    {
+        // Assuming the DialogueManager is on the same GameObject or you can find it through the scene.
+        dialogueManager = FindObjectOfType<DialogueManager>();
+    }
+
     // Update is called once per frame, used to open the dialogue panel or go to next line of text when the conditions are met. 
     protected override void Update()
     {
@@ -27,12 +36,20 @@ public class NPC : Interactable
             }
             else if (!dialoguePanel.activeInHierarchy)
             {
+                string savedNodeName = PlayerPrefs.GetString(npcName + "_currentNode", string.Empty);
                 Time.timeScale = 0;
                 npcImageUI.sprite = npcPortrait;
                 npcNameText.text = npcName;
                 dialoguePanel.SetActive(true);
                 npcImageUI.gameObject.SetActive(true);
-                currentDialogueNode = startNode;
+                if (!string.IsNullOrEmpty(savedNodeName))
+                {
+                    currentDialogueNode = dialogueManager.GetDialogueNodeById(savedNodeName);
+                }
+                else
+                {
+                    currentDialogueNode = startNode;
+                }
                 StartCoroutine(base.Typing());
             }
         }
@@ -40,6 +57,8 @@ public class NPC : Interactable
 
     public override void closeDialogue()
     {
+        PlayerPrefs.SetString(npcName + "_currentNode", startNode.nodeId);
+        PlayerPrefs.Save();
         npcImageUI.gameObject.SetActive(false);
         npcImageUI.sprite = null;
         npcNameText.text = null;

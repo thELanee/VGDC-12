@@ -2,5 +2,7 @@
 public class Item
 {
     public string itemName; // Name of the item
-    // Add other properties related to the item here, e.g., type, description, etc.
+    private int itemID;
+
+    
 }

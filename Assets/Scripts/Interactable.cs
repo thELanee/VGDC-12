@@ -23,7 +23,7 @@ public class Interactable : MonoBehaviour
     protected bool isTyping;
     protected bool expectingResponse;
 
-    protected void Start()
+    protected virtual void Start()
     {
 
     }
@@ -91,7 +91,7 @@ public class Interactable : MonoBehaviour
     }
 
     // Controls what dialogue node we go to next or if we exit dialogue
-    public void NextLine()
+    protected virtual void NextLine()
     {
         // We still have more dialogue, and it does not require player input to reach
         if (!currentDialogueNode.pause && (currentDialogueNode.options.Count == 0) && currentDialogueNode.nextNode != null)

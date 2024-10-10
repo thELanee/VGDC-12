@@ -19,6 +19,8 @@ public class DialogueNode : ScriptableObject
     public bool bookmark;                // This should be set to true if you want the dialogue to start from here on the next interaction
                                          // WARNING: DO NOT HAVE A BOOKMARK NODE BEFORE A PAUSE NODE OR ELSE DIALOGUE WILL NOT CONTINUE PAST THE PAUSE NODE
     public string dialogue;              // Where the character's dialogue is stored
+
+    public string nodeId;
 }
 
 [System.Serializable]

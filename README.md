@@ -36,4 +36,40 @@ Check this option to set a dialogue node as a bookmark node. When you talk to an
 
 ### Dialogue: The text that will be displayed when the node is reached
 
+### flags: If this is set, we have dialogue that are determined by flags, if those flags are triggered, we skip the dialogue here and go directly to the triggered node. NOTE: We will select the first node that passes the condition checks so make sure that the dialogue that requires the most conditions is placed first in the list
+
+### nodeId: How we keep track of, find and assign dialogue to NPCs, the nodeId should be set to match the file name.
+
+### flags_activated: A list of words you input, each word is a flag, and seeing this dialogue option means you have triggered the flags listed
 That is all for now.
+
+## How to add NPCs to a Scene
+Open the renderingConditions.JSON file
+![image](https://github.com/user-attachments/assets/9b9003fd-746c-4ed1-9577-c186a696db1a)
+
+
+To add a rendering condition, add an entry with the format:
+
+```
+        {
+            "sceneName": name of scene,
+            "characterName": name of npc,
+            "instructions": {
+                "conditions": [     You can have multiple flag conditions to render a character. The state of all flags must match the conditions in order for the character to appear
+                    {
+                        "flag": flag1 (can name it whatever you want, just make it easy to keep track of),
+                        "triggered": false
+                    },
+                    {
+                        "flag": "flag2",
+                        "triggered": true
+                    }
+                ],
+                "nodeId": "nodeId",  Id of the dialogue node they will start with
+                "renderingCoords": {     Location they will be rendered in
+                    "x": -4.5,
+                    "y": 2.5
+                }
+            }
+        }
+```

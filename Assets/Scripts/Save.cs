@@ -233,7 +233,7 @@ public class SaveManager : MonoBehaviour
                 }
 
                 // Log the instructions before creating the RenderingInstructions object
-                Debug.Log($"Entry Instructions: NodeId: {entry.instructions.nodeId}, RenderingCoords: {entry.instructions.renderingCoords}");
+                Debug.Log($"Entry Instructions: NodeId: {entry.instructions.nodeId}, RenderingCoords: {entry.instructions.renderingCoords}, Facing Direction: {entry.instructions.facingDirection}");
 
                 // Check if conditions are null
                 if (entry.instructions.conditions == null)
@@ -250,7 +250,8 @@ public class SaveManager : MonoBehaviour
                 {
                     conditions = entry.instructions.conditions, // Accessing conditions correctly
                     nodeId = entry.instructions.nodeId, // Assuming there's only one nodeId
-                    renderingCoords = entry.instructions.renderingCoords // Assuming this is a CustomVector2
+                    renderingCoords = entry.instructions.renderingCoords, // Assuming this is a CustomVector2
+                    facingDirection = entry.instructions.facingDirection // New property for facing direction
                 };
 
                 // Add the RenderingInstructions object to the list for that character

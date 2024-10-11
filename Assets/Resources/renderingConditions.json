@@ -14,7 +14,8 @@
                 "renderingCoords": {
                     "x": -35,
                     "y": 24
-                }
+                },
+                "facingDirection": "Up" 
             }
         },
         {
@@ -31,7 +32,8 @@
                 "renderingCoords": {
                     "x": -4.5,
                     "y": 2.5
-                }
+                },
+                "facingDirection": "Down" 
             }
         }
     ]

@@ -16,8 +16,8 @@ public class DialogueManager : MonoBehaviour
     public bool expectingResponse;
     public TextMeshProUGUI npcNameText;
     public Image npcImageUI;
-    public List<DialogueNode> allDialogueNodes; // Store all dialogue nodes
-    private Dictionary<string, DialogueNode> dialogueNodeDictionary; // Dictionary for quick access
+    //public List<DialogueNode> allDialogueNodes; // Store all dialogue nodes
+    //private Dictionary<string, DialogueNode> dialogueNodeDictionary; // Dictionary for quick access
 
     public DialogueNode currentDialogueNode; // Current dialogue node being processed
     public bool isTyping;
@@ -38,13 +38,13 @@ public class DialogueManager : MonoBehaviour
     }
     void Start()
     {
-        allDialogueNodes = new List<DialogueNode>(Resources.LoadAll<DialogueNode>($"Dialogue/"));
+        //allDialogueNodes = new List<DialogueNode>(Resources.LoadAll<DialogueNode>($"Dialogue/"));
         // Populate the dictionary for fast access
-        dialogueNodeDictionary = new Dictionary<string, DialogueNode>();
-        foreach (var node in allDialogueNodes)
-        {
-            dialogueNodeDictionary[node.nodeId] = node;
-        }
+        //dialogueNodeDictionary = new Dictionary<string, DialogueNode>();
+        //foreach (var node in allDialogueNodes)
+        //{
+        //    dialogueNodeDictionary[node.nodeId] = node;
+        //}
         // Initially hide the dialogue panel
         dialoguePanel.SetActive(false);
     }
@@ -52,11 +52,16 @@ public class DialogueManager : MonoBehaviour
     // Call this method to find a node by its ID
     public DialogueNode GetDialogueNodeById(string id)
     {
-        // Try to get the node from the dictionary
-        if (dialogueNodeDictionary.TryGetValue(id, out DialogueNode node))
+        // Attempt to load the DialogueNode from the Resources folder
+        DialogueNode node = Resources.Load<DialogueNode>($"Dialogue/{id}");
+
+        // Return the loaded node or null if not found
+        if (node != null)
         {
             return node;
         }
+
+        Debug.LogWarning($"DialogueNode with ID '{id}' not found in Resources/DialogueNodes.");
         return null; // Return null if not found
     }
     public void unsetNPCImage()

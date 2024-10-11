@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
                     else
                     {
                         Debug.Log($"NPC: {npcName} does not meet the conditions.");
-                        
+
                     }
                 }
             }
@@ -103,17 +103,42 @@ public class GameManager : MonoBehaviour
 
         if (npcPrefab != null)
         {
+            // Instantiate the NPC prefab
             GameObject npcInstance = Instantiate(npcPrefab);
 
+            // Set the NPC's position based on rendering coordinates
             Vector3 npcPosition = new Vector3(renderingDetails.renderingCoords.x, renderingDetails.renderingCoords.y, 0);
             npcInstance.transform.position = npcPosition;
 
-            npcInstance.layer = 2; // Set the layer to 2
+            // Set the NPC's layer (2 in this case)
+            npcInstance.layer = 2;
 
+            // Get the NPC component and set the starting dialogue node
             var npcComponent = npcInstance.GetComponent<NPC>();
             if (npcComponent != null)
             {
                 npcComponent.startNode = dialogueManager.GetDialogueNodeById(renderingDetails.nodeId);
+            }
+
+            // Set the NPC's facing direction based on rendering details (using Direction enum)
+            switch (renderingDetails.facingDirection)  // Assuming facingDirection is of type Direction
+            {
+                case Direction.Up:
+                    npcInstance.transform.rotation = Quaternion.Euler(0, 0, 0);  // Face up
+                    break;
+                case Direction.Down:
+                    npcInstance.transform.rotation = Quaternion.Euler(0, 0, 180);  // Face down
+                    break;
+                case Direction.Left:
+                    npcInstance.transform.rotation = Quaternion.Euler(0, 0, 90);  // Face left
+                    break;
+                case Direction.Right:
+                    npcInstance.transform.rotation = Quaternion.Euler(0, 0, -90);  // Face right
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown facing direction '{renderingDetails.facingDirection}' for NPC {npcName}. Defaulting to 'up'.");
+                    npcInstance.transform.rotation = Quaternion.Euler(0, 0, 180);  // Default Face down 
+                    break;
             }
 
             // Move the NPC GameObject to the target scene
@@ -128,7 +153,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning($"Scene {targetSceneName} is not loaded. Cannot move NPC to the target scene.");
             }
 
-            Debug.Log($"Instantiated {npcName} at position {npcPosition} with nodeId {renderingDetails.nodeId}");
+            Debug.Log($"Instantiated {npcName} at position {npcPosition} with nodeId {renderingDetails.nodeId}, facing {renderingDetails.facingDirection}");
         }
         else
         {

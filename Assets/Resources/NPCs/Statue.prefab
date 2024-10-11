@@ -44,7 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9154c49fa76da924896650f8cab5415d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialoguePanel: {fileID: 0}
+  dialogueText: {fileID: 0}
+  optionButtonContainer: {fileID: 0}
+  optionButtonPrefab: {fileID: 0}
+  expectingResponse: 0
+  npcNameText: {fileID: 0}
+  npcImageUI: {fileID: 0}
   allDialogueNodes: []
+  currentDialogueNode: {fileID: 0}
+  isTyping: 0
+  wordSpeed: 0
+  startNode: {fileID: 0}
+  npcName: 
 --- !u!1 &2544777852451228270
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +244,7 @@ GameObject:
   - component: {fileID: 6163270171592175475}
   - component: {fileID: 865292335513593696}
   m_Layer: 20
-  m_Name: Statue_
+  m_Name: Statue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,15 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3c9257364196e46ad514bba71b7538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionButtonPrefab: {fileID: 6968879738410921153, guid: f3e1553b90675ba41903f900a5fe665e,
-    type: 3}
-  optionButtonContainer: {fileID: 0}
-  dialoguePanel: {fileID: 0}
-  dialogueText: {fileID: 0}
   startNode: {fileID: 11400000, guid: 648f3c78f66e2754b9bec2e993d0308d, type: 2}
-  wordSpeed: 0.04
   playerIsClose: 0
   npcName: Statue?
   npcPortrait: {fileID: 21300000, guid: 69418c2517c365040954eaf13d17a845, type: 3}
-  npcNameText: {fileID: 0}
-  npcImageUI: {fileID: 0}

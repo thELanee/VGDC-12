@@ -11,14 +11,14 @@ public class Chest : Interactable
         if (Input.GetKeyDown(KeyCode.Space) && playerIsClose)
         {
             // To play the next line, must have dialogue panel open, must have stopped typing and must not be expecting a response
-            if (dialoguePanel.activeInHierarchy && !isTyping && !expectingResponse)
+            if (DialogueManager.Instance.dialoguePanel.activeSelf && !DialogueManager.Instance.isTyping && !DialogueManager.Instance.expectingResponse)
             {
-                NextLine();
+                DialogueManager.Instance.NextLine();
             }
-            else if (!dialoguePanel.activeInHierarchy && !empty)
+            else if (!DialogueManager.Instance.dialoguePanel.activeSelf)
             {
                 Time.timeScale = 0;
-                dialoguePanel.SetActive(true);
+                DialogueManager.Instance.ShowDialogue();
                 GiveRandomItem();
             }
         }
@@ -35,7 +35,7 @@ public class Chest : Interactable
             // Display the item name in the dialogue
             currentDialogueNode = CreateDialogueNode("You found " + randomItem.itemName + "!");
 
-            StartCoroutine(Typing());
+            DialogueManager.Instance.TypingS(currentDialogueNode);
         }
     }
 }

@@ -24,7 +24,7 @@ public class TriggerZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             parentNPC.playerIsClose = false;
-            parentNPC.closeDialogue();
+            DialogueManager.Instance.eraseNodes();
         }
     }
 }

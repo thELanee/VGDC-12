@@ -26,6 +26,11 @@ public class DialogueNode : ScriptableObject
     public string nodeId;                // How we keep track of and retrieve dialogue nodes
 
     public List<string> flags_activated; // Seeing this dialogue option triggers the flags listed
+    private void OnEnable()
+    {
+        // Automatically set nodeId to the name of the file (the name of this ScriptableObject)
+        nodeId = name; 
+    }
 }
 
 [System.Serializable]

@@ -1,0 +1,38 @@
+{
+    "entries": [
+        {
+            "sceneName": "Player_room",
+            "characterName": "Statue",
+            "instructions": {
+                "conditions": [
+                    {
+                        "flag": "AnnoyedStatue",
+                        "triggered": true
+                    }
+                ],
+                "nodeId": "StatueS2N1",
+                "renderingCoords": {
+                    "x": -35,
+                    "y": 24
+                }
+            }
+        },
+        {
+            "sceneName": "SampleScene",
+            "characterName": "Statue",
+            "instructions": {
+                "conditions": [
+                    {
+                        "flag": "AnnoyedStatue",
+                        "triggered": false
+                    }
+                ],
+                "nodeId": "StatueS1N1",
+                "renderingCoords": {
+                    "x": -4.5,
+                    "y": 2.5
+                }
+            }
+        }
+    ]
+}

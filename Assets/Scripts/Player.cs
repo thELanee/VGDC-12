@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    walk,
+    sprint,
+    interact,
+    idle
+}
 public class Player_movement : MonoBehaviour
 {
 
@@ -15,35 +22,43 @@ public class Player_movement : MonoBehaviour
     public float playerSpeed; // playerSpeed, calcuated using sprint and/or speed.
     public Rigidbody2D player;
     public Animator playerAnimator; //controls animation speed, might not be needed, as sprite may be too quick to notice.
+    public PlayerState currentState;
+    public VectorValue startingPosition;
 
     Vector2 velocity;
 
     void Start()
     {
+        playerAnimator = GetComponent<Animator>();
+        player = GetComponent<Rigidbody2D>();
+        playerAnimator.SetFloat("moveX", 0);
+        playerAnimator.SetFloat("moveY", -1);
+        transform.position = startingPosition.initialValue;
     }
 
     void Update()
     {
-       
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             playerSpeed = speed + sprint;
         }
-        else    {
+        else
+        {
             playerSpeed = speed;
-    }
+        }
         velocity.x = Input.GetAxisRaw("Horizontal");
         velocity.y = Input.GetAxisRaw("Vertical");
 
-       // if (velocity != Vector2.zero) {
-        
+        // if (velocity != Vector2.zero) {
+
         //playerAnimator.SetFloat("Horizontal", velocity.x);
         //playerAnimator.SetFloat("Vertical", velocity.y);
 
     }
 
     //playerAnimator.SetFloat("Speed", velocity.sqrMagnitude);
-    
+
     //}
 
     void FixedUpdate()

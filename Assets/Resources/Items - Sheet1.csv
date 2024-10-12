@@ -1,3 +1,4 @@
 itemName,itemId,itemDescription,itemType,attackStat,healthRecovered,sanRecovered
-Stale_Bread,0,yummers,consumable,,2,-1
-Box_Cutter,1,sharp enough,weapon,2,,
+Stale Bread,0,yummers,consumable,,2,-1
+Box Cutter,1,sharp enough,weapon,2,,
+Kitchen Knife,2,sharper!,weapon,4,,

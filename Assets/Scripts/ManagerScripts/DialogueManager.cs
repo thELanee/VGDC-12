@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
     public GameObject dialoguePanel; // Reference to the dialogue panel GameObject
     public TextMeshProUGUI dialogueText; // Reference to the dialogue text component
-    public Transform optionButtonContainer; // Reference to the container for option buttons
+    public RectTransform optionButtonContainer; // Reference to the container for option buttons
     public GameObject optionButtonPrefab;
     public bool expectingResponse;
     public TextMeshProUGUI npcNameText;
@@ -47,6 +47,7 @@ public class DialogueManager : MonoBehaviour
         //}
         // Initially hide the dialogue panel
         dialoguePanel.SetActive(false);
+        npcNameText.text = "";
     }
 
     // Call this method to find a node by its ID
@@ -84,7 +85,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = ""; // Clear current text
 
         // Check flags for conditions and update current node accordingly
-        if (currentDialogueNode.flags.Count > 0)
+        if (currentDialogueNode.flags != null && currentDialogueNode.flags.Count > 0)
         {
             foreach (FlagConnector flag in currentDialogueNode.flags)
             {
@@ -104,7 +105,7 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
 
         // Display options if available
-        if (currentDialogueNode.options.Count > 0)
+        if (currentDialogueNode.options != null && currentDialogueNode.options.Count > 0)
         {
             expectingResponse = true;
             DisplayDialogueOptions(currentDialogueNode.options); // Show options
@@ -115,7 +116,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Activate any flags associated with this dialogue node
-        if (currentDialogueNode.flags_activated.Count > 0)
+        if (currentDialogueNode.flags_activated != null && currentDialogueNode.flags_activated.Count > 0)
         {
             SaveManager.Instance.AddCharacterFlags(currentDialogueNode.flags_activated);
         }
@@ -181,8 +182,11 @@ public class DialogueManager : MonoBehaviour
     }
     public void NextLine()
     {
+        if (currentDialogueNode == null) {
+            return;
+        }
         // Continue to the next node if available and not expecting player input
-        if (!currentDialogueNode.pause && (currentDialogueNode.options.Count == 0) && currentDialogueNode.nextNode != null)
+        if (!currentDialogueNode.pause && (currentDialogueNode.options == null || currentDialogueNode.options.Count == 0) && currentDialogueNode.nextNode != null)
         {
             currentDialogueNode = currentDialogueNode.nextNode; // Move to the next node
             dialogueText.text = ""; // Clear current text

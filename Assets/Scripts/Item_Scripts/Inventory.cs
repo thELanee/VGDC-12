@@ -14,8 +14,8 @@ public struct ItemSlot
     }
 }
 
-
-public class Inventory : MonoBehaviour
+[CreateAssetMenu(fileName = "NewInventory", menuName = "Inventory/New Inventory")]
+public class Inventory : ScriptableObject
 {
     public List<ItemSlot> itemSlots = new List<ItemSlot>();
 
@@ -54,6 +54,21 @@ public class Inventory : MonoBehaviour
                 // Remove the item slot if the quantity drops to 0
                 itemSlots.RemoveAt(index);
             }
+        }
+    }
+
+    public void PrintInventory()
+    {
+        if (itemSlots.Count == 0)
+        {
+            Debug.Log("Inventory is empty.");
+            return;
+        }
+
+        Debug.Log("Inventory Items:");
+        foreach (var slot in itemSlots)
+        {
+            Debug.Log($"{slot.item.itemName}: {slot.quantity}");
         }
     }
 }

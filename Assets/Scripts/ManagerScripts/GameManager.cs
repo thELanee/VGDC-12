@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,9 +6,10 @@ public class GameManager : MonoBehaviour
 {
     // Singleton instance of GameManager
     public static GameManager Instance { get; private set; }
-
     public GameObject saveManagerPrefab; // Reference to the SaveManager prefab
     public DialogueManager dialogueManager;
+    // Dictionary to keep track of emptied chests (using unique identifiers)
+    private Dictionary<string, Dictionary<int, bool>> chestStates = new Dictionary<string, Dictionary<int, bool>>();
 
     private void Awake()
     {
@@ -121,5 +123,30 @@ public class GameManager : MonoBehaviour
                 SceneManager.MoveGameObjectToScene(npcInstance, targetScene);
             }
         }
+    }
+
+    // Check if a chest has been emptied
+    public bool IsChestEmpty(int chestID, string sceneName)
+    {
+        // Check if the scene exists in the chestStates dictionary
+        if (chestStates.TryGetValue(sceneName, out Dictionary<int, bool> sceneChests))
+        {
+            // Check if the specific chest exists and return its state (true = empty)
+            return sceneChests.TryGetValue(chestID, out bool isEmpty) && isEmpty;
+        }
+        return false; // If scene or chest is not found, assume the chest is not empty
+    }
+
+    // Set a chest as empty
+    public void SetChestEmpty(int chestID, string sceneName)
+    {
+        // Check if the scene exists in the chestStates dictionary
+        if (!chestStates.ContainsKey(sceneName))
+        {
+            chestStates[sceneName] = new Dictionary<int, bool>(); // Add the scene if not present
+        }
+
+        // Mark the specific chest as empty in the scene's dictionary
+        chestStates[sceneName][chestID] = true;
     }
 }

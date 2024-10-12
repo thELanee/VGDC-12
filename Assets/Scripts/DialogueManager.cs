@@ -60,8 +60,6 @@ public class DialogueManager : MonoBehaviour
         {
             return node;
         }
-
-        Debug.LogWarning($"DialogueNode with ID '{id}' not found in Resources/DialogueNodes.");
         return null; // Return null if not found
     }
     public void unsetNPCImage()
@@ -154,11 +152,6 @@ public class DialogueManager : MonoBehaviour
             if (button != null)
             {
                 button.onClick.AddListener(() => OnOptionSelected(option));
-                Debug.Log("Button added for option: " + option.optionText); // Debug log
-            }
-            else
-            {
-                Debug.LogError("Button component is missing from the option button prefab.");
             }
         }
     }
@@ -185,10 +178,6 @@ public class DialogueManager : MonoBehaviour
             optionButtonContainer.gameObject.SetActive(false);
             TypingS(currentDialogueNode); // Start typing effect for the next dialogue node
         }
-        else
-        {
-            Debug.LogWarning("Selected option does not have a next node.");
-        }
     }
     public void NextLine()
     {
@@ -196,7 +185,6 @@ public class DialogueManager : MonoBehaviour
         if (!currentDialogueNode.pause && (currentDialogueNode.options.Count == 0) && currentDialogueNode.nextNode != null)
         {
             currentDialogueNode = currentDialogueNode.nextNode; // Move to the next node
-            Debug.Log("Switch to next node: " + currentDialogueNode.dialogue);
             dialogueText.text = ""; // Clear current text
             TypingS(currentDialogueNode); // Start typing effect
         }

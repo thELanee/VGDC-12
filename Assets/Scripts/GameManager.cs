@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Implement the singleton pattern
         if (Instance == null)
         {
             Instance = this;
@@ -27,16 +26,10 @@ public class GameManager : MonoBehaviour
         if (SaveManager.Instance == null)
         {
             Instantiate(saveManagerPrefab); // Instantiate SaveManager
-            Debug.Log("SaveManager instantiated by GameManager.");
         }
 
         // Ensure DialogueManager is available
         dialogueManager = FindObjectOfType<DialogueManager>();
-        if (dialogueManager == null)
-        {
-            Debug.LogError("DialogueManager not found in the scene. Please ensure it is instantiated.");
-        }
-
         SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to sceneLoaded event
     }
 
@@ -48,7 +41,6 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Call LoadCharactersForScene when a new scene is loaded
-        Debug.Log($"Scene {scene.name} loaded, attempting to load NPCs.");
         LoadCharactersForScene(scene.name); // Load characters for the new scene
     }
     public void LoadCharactersForScene(string sceneName)
@@ -59,41 +51,23 @@ public class GameManager : MonoBehaviour
         {
             // Get rendering conditions for the current scene
             var renderConditions = saveManager.GetRenderConditions(sceneName);
-
-            // Log the rendering conditions for the current scene
-            Debug.Log($"Loaded rendering conditions for scene: {sceneName}. Total characters: {renderConditions.Count}");
-
             foreach (var kvp in renderConditions)
             {
                 string npcName = kvp.Key; // Get the NPC name
                 var renderingInstructionsList = kvp.Value; // Get the list of RenderingInstructions
-
-                Debug.Log($"Checking NPC: {npcName}. Total rendering instructions: {renderingInstructionsList.Count}");
-
                 foreach (var renderingInstructions in renderingInstructionsList)
                 {
                     var conditions = renderingInstructions.conditions; // List<Condition>
-                    Debug.Log($"NPC: {npcName} - Checking {conditions.Count} conditions.");
 
                     // Check if the character can be instantiated based on conditions
                     if (saveManager.CheckConditions(conditions))
                     {
-                        Debug.Log($"NPC: {npcName} meets the conditions. Instantiating character.");
                         // Instantiate the character with RenderingInstructions
                         InstantiateCharacter(npcName, renderingInstructions, sceneName);
                         break; // Only instantiate once per NPC
                     }
-                    else
-                    {
-                        Debug.Log($"NPC: {npcName} does not meet the conditions.");
-
-                    }
                 }
             }
-        }
-        else
-        {
-            Debug.LogError("SaveManager instance is null. Cannot load characters for the scene.");
         }
     }
 
@@ -136,28 +110,16 @@ public class GameManager : MonoBehaviour
                     npcInstance.transform.rotation = Quaternion.Euler(0, 0, -90);  // Face right
                     break;
                 default:
-                    Debug.LogWarning($"Unknown facing direction '{renderingDetails.facingDirection}' for NPC {npcName}. Defaulting to 'up'.");
                     npcInstance.transform.rotation = Quaternion.Euler(0, 0, 180);  // Default Face down 
                     break;
             }
 
             // Move the NPC GameObject to the target scene
-            UnityEngine.SceneManagement.Scene targetScene = SceneManager.GetSceneByName(targetSceneName);
+            Scene targetScene = SceneManager.GetSceneByName(targetSceneName);
             if (targetScene.isLoaded)
             {
                 SceneManager.MoveGameObjectToScene(npcInstance, targetScene);
-                Debug.Log($"NPC {npcName} instantiated and moved to scene: {targetSceneName}");
             }
-            else
-            {
-                Debug.LogWarning($"Scene {targetSceneName} is not loaded. Cannot move NPC to the target scene.");
-            }
-
-            Debug.Log($"Instantiated {npcName} at position {npcPosition} with nodeId {renderingDetails.nodeId}, facing {renderingDetails.facingDirection}");
-        }
-        else
-        {
-            Debug.LogWarning($"NPC prefab '{npcName}' not found in Resources/NPCs.");
         }
     }
 }

@@ -16,8 +16,8 @@ public class DialogueManager : MonoBehaviour
     public bool expectingResponse;
     public TextMeshProUGUI npcNameText;
     public Image npcImageUI;
-    public List<DialogueNode> allDialogueNodes; // Store all dialogue nodes
-    private Dictionary<string, DialogueNode> dialogueNodeDictionary; // Dictionary for quick access
+    //public List<DialogueNode> allDialogueNodes; // Store all dialogue nodes
+    //private Dictionary<string, DialogueNode> dialogueNodeDictionary; // Dictionary for quick access
 
     public DialogueNode currentDialogueNode; // Current dialogue node being processed
     public bool isTyping;
@@ -38,13 +38,13 @@ public class DialogueManager : MonoBehaviour
     }
     void Start()
     {
-        allDialogueNodes = new List<DialogueNode>(Resources.LoadAll<DialogueNode>($"Dialogue/"));
+        //allDialogueNodes = new List<DialogueNode>(Resources.LoadAll<DialogueNode>($"Dialogue/"));
         // Populate the dictionary for fast access
-        dialogueNodeDictionary = new Dictionary<string, DialogueNode>();
-        foreach (var node in allDialogueNodes)
-        {
-            dialogueNodeDictionary[node.nodeId] = node;
-        }
+        //dialogueNodeDictionary = new Dictionary<string, DialogueNode>();
+        //foreach (var node in allDialogueNodes)
+        //{
+        //    dialogueNodeDictionary[node.nodeId] = node;
+        //}
         // Initially hide the dialogue panel
         dialoguePanel.SetActive(false);
     }
@@ -52,8 +52,11 @@ public class DialogueManager : MonoBehaviour
     // Call this method to find a node by its ID
     public DialogueNode GetDialogueNodeById(string id)
     {
-        // Try to get the node from the dictionary
-        if (dialogueNodeDictionary.TryGetValue(id, out DialogueNode node))
+        // Attempt to load the DialogueNode from the Resources folder
+        DialogueNode node = Resources.Load<DialogueNode>($"Dialogue/{id}");
+
+        // Return the loaded node or null if not found
+        if (node != null)
         {
             return node;
         }
@@ -149,11 +152,6 @@ public class DialogueManager : MonoBehaviour
             if (button != null)
             {
                 button.onClick.AddListener(() => OnOptionSelected(option));
-                Debug.Log("Button added for option: " + option.optionText); // Debug log
-            }
-            else
-            {
-                Debug.LogError("Button component is missing from the option button prefab.");
             }
         }
     }
@@ -180,10 +178,6 @@ public class DialogueManager : MonoBehaviour
             optionButtonContainer.gameObject.SetActive(false);
             TypingS(currentDialogueNode); // Start typing effect for the next dialogue node
         }
-        else
-        {
-            Debug.LogWarning("Selected option does not have a next node.");
-        }
     }
     public void NextLine()
     {
@@ -191,7 +185,6 @@ public class DialogueManager : MonoBehaviour
         if (!currentDialogueNode.pause && (currentDialogueNode.options.Count == 0) && currentDialogueNode.nextNode != null)
         {
             currentDialogueNode = currentDialogueNode.nextNode; // Move to the next node
-            Debug.Log("Switch to next node: " + currentDialogueNode.dialogue);
             dialogueText.text = ""; // Clear current text
             TypingS(currentDialogueNode); // Start typing effect
         }

@@ -1,0 +1,3 @@
+itemName,itemId,itemDescription,itemType,attackStat,healthRecovered,sanRecovered
+Stale_Bread,0,yummers,consumable,,2,-1
+Box_Cutter,1,sharp enough,weapon,2,,

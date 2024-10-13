@@ -12,7 +12,7 @@ public class PlayerHealthTracker : MonoBehaviour
         PlayerManager.OnHealthChanged -= LogHealthChange;
     }
 
-    private void LogHealthChange(int currentHealth, int maxHealth)
+    private void LogHealthChange(float currentHealth, float maxHealth)
     {
         Debug.Log($"Health updated: {currentHealth}/{maxHealth}");
     }

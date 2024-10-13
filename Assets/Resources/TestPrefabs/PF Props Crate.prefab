@@ -267,10 +267,8 @@ MonoBehaviour:
   playerIsClose: 0
   refillable: 1
   itemPool:
-  - item: {fileID: 11400000, guid: 6b942b8400db9a845bd2871f03a7d18a, type: 2}
+  - item: {fileID: 11400000, guid: 7efb1ae2c47febb458d44797424dfcc3, type: 2}
     quantity: 1
-  - item: {fileID: 11400000, guid: 6b942b8400db9a845bd2871f03a7d18a, type: 2}
-    quantity: 2
   chestID: 1
 --- !u!1 &7953702908317037109
 GameObject:

@@ -9,10 +9,6 @@ public class Interactable : MonoBehaviour
     public DialogueNode startNode; // The dialogue we want to start from whenever the player interacts with the NPC
     protected DialogueNode currentDialogueNode;
     public bool playerIsClose;
-    protected virtual void Start()
-    {
-        // Optional: Initialization code here if needed
-    }
 
     protected virtual void Update()
     {
@@ -42,7 +38,7 @@ public class Interactable : MonoBehaviour
         node.dialogue = dialogueText;
         node.pause = p;
         node.bookmark = b;
-        node.options ??= new List<DialogueOption>();
+        node.options ??= options;
         node.nextNode ??= nn;
         return node;
     }

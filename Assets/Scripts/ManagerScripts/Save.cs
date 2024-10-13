@@ -75,7 +75,7 @@ public class SaveManager : MonoBehaviour
             }
             catch (Exception ex)
             {
-                Debug.LogError("Failed to load start nodes: " + ex.Message);
+                //Debug.LogError("Failed to load start nodes: " + ex.Message);
             }
             finally
             {
@@ -84,7 +84,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Save file does not exist: " + saveFilePath);
+            //Debug.LogWarning("Save file does not exist: " + saveFilePath);
         }
     }
 
@@ -215,7 +215,7 @@ public class SaveManager : MonoBehaviour
             foreach (var entry in data.entries)
             {
                 // Log each entry being processed
-                Debug.Log($"Processing entry for Scene: {entry.sceneName}, Character: {entry.characterName}");
+                //Debug.Log($"Processing entry for Scene: {entry.sceneName}, Character: {entry.characterName}");
 
                 // Ensure the outer dictionary has the scene name
                 if (!renderingConditions.ContainsKey(entry.sceneName))
@@ -233,16 +233,16 @@ public class SaveManager : MonoBehaviour
                 }
 
                 // Log the instructions before creating the RenderingInstructions object
-                Debug.Log($"Entry Instructions: NodeId: {entry.instructions.nodeId}, RenderingCoords: {entry.instructions.renderingCoords}, Facing Direction: {entry.instructions.facingDirection}");
+                //Debug.Log($"Entry Instructions: NodeId: {entry.instructions.nodeId}, RenderingCoords: {entry.instructions.renderingCoords}, Facing Direction: {entry.instructions.facingDirection}");
 
                 // Check if conditions are null
                 if (entry.instructions.conditions == null)
                 {
-                    Debug.LogWarning($"Conditions for Scene: {entry.sceneName}, Character: {entry.characterName} are null.");
+                    //Debug.LogWarning($"Conditions for Scene: {entry.sceneName}, Character: {entry.characterName} are null.");
                 }
                 else
                 {
-                    Debug.Log($"Loaded {entry.instructions.conditions.Count} conditions for Scene: {entry.sceneName}, Character: {entry.characterName}.");
+                    //Debug.Log($"Loaded {entry.instructions.conditions.Count} conditions for Scene: {entry.sceneName}, Character: {entry.characterName}.");
                 }
 
                 // Create the RenderingInstructions object directly from the data
@@ -259,11 +259,11 @@ public class SaveManager : MonoBehaviour
             }
 
             // Log the total loaded conditions after the loop
-            Debug.Log($"Successfully loaded rendering conditions. Total scenes: {renderingConditions.Count}");
+            //Debug.Log($"Successfully loaded rendering conditions. Total scenes: {renderingConditions.Count}");
         }
         else
         {
-            Debug.LogError("Failed to load renderingConditions.json from Resources.");
+           // Debug.LogError("Failed to load renderingConditions.json from Resources.");
         }
     }
 
@@ -271,16 +271,16 @@ public class SaveManager : MonoBehaviour
     {
         var result = new Dictionary<string, List<RenderingInstructions>>();
 
-        Debug.Log($"Getting rendering conditions for scene: {sceneName}");
+    //    Debug.Log($"Getting rendering conditions for scene: {sceneName}");
 
         if (renderingConditions.TryGetValue(sceneName, out var sceneEntry))
         {
-            Debug.Log($"Found {sceneEntry.Count} characters in scene: {sceneName}");
+         //   Debug.Log($"Found {sceneEntry.Count} characters in scene: {sceneName}");
 
             foreach (var characterEntry in sceneEntry)
             {
                 string characterName = characterEntry.Key;
-                Debug.Log($"Processing character: {characterName}");
+               // Debug.Log($"Processing character: {characterName}");
 
                 // Initialize the list for this character if it doesn't exist
                 if (!result.ContainsKey(characterName))
@@ -292,16 +292,16 @@ public class SaveManager : MonoBehaviour
                 {
                     // Add the RenderingInstructions directly to the list for this character
                     result[characterName].Add(renderingInstructions);
-                    Debug.Log("Added Instruction " + renderingInstructions.ToString());
+                    //Debug.Log("Added Instruction " + renderingInstructions.ToString());
                 }
             }
         }
         else
         {
-            Debug.LogWarning($"No rendering conditions found for scene: {sceneName}");
+            //Debug.LogWarning($"No rendering conditions found for scene: {sceneName}");
         }
 
-        Debug.Log($"Finished getting rendering conditions for scene: {sceneName}. Total characters processed: {result.Count}");
+        //Debug.Log($"Finished getting rendering conditions for scene: {sceneName}. Total characters processed: {result.Count}");
 
         return result;
     }

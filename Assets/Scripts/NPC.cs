@@ -31,14 +31,6 @@ public class NPC : Interactable
             }
             else if (!DialogueManager.Instance.dialoguePanel.activeSelf)
             {
-                if (SaveManager.Instance != null)
-                {
-                    Debug.Log("SaveManager is instantiated.");
-                }
-                else
-                {
-                    Debug.Log("SaveManager is not instantiated.");
-                }
                 DialogueManager.Instance.npcName = this.npcName;
                 string savedNodeId = SaveManager.Instance.GetStartNode(npcName, SceneManager.GetActiveScene().name);
                 Time.timeScale = 0;
@@ -47,7 +39,6 @@ public class NPC : Interactable
                 DialogueManager.Instance.npcImageUI.gameObject.SetActive(true);
                 if (!string.IsNullOrEmpty(savedNodeId))
                 {
-                    Debug.Log("not empty");
                     currentDialogueNode = DialogueManager.Instance.GetDialogueNodeById(savedNodeId);
                 }
                 else

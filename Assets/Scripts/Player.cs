@@ -20,6 +20,14 @@ public class Player_movement : MonoBehaviour
 
     void Start()
     {
+        /*if (PlayerPrefs.HasKey("PlayerX") && PlayerPrefs.HasKey("PlayerY") && PlayerPrefs.HasKey("PlayerZ"))
+        {
+            float x = PlayerPrefs.GetFloat("PlayerX");
+            float y = PlayerPrefs.GetFloat("PlayerY");
+            float z = PlayerPrefs.GetFloat("PlayerZ");
+
+            player.transform.position = new Vector3(x, y, z);
+        }*/
     }
 
     void Update() 

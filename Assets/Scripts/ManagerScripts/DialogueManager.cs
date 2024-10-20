@@ -124,6 +124,7 @@ public class DialogueManager : MonoBehaviour
     // Show the dialogue panel
     public void ShowDialogue()
     {
+        Debug.Log("setting to true");
         dialoguePanel.SetActive(true);
     }
 

@@ -38,7 +38,7 @@ public class Player_movement : MonoBehaviour
 
     void Update()
     {
-
+        // Calculate player speed based on sprinting
         if (Input.GetKey(KeyCode.LeftShift))
         {
             playerSpeed = speed + sprint;
@@ -47,15 +47,25 @@ public class Player_movement : MonoBehaviour
         {
             playerSpeed = speed;
         }
+
+        // Get input axes
         velocity.x = Input.GetAxisRaw("Horizontal");
         velocity.y = Input.GetAxisRaw("Vertical");
 
-        // if (velocity != Vector2.zero) {
+        // Normalize the velocity vector to prevent faster diagonal movement
+        if (velocity.sqrMagnitude > 1)
+        {
+            velocity.Normalize();
+        }
 
-        //playerAnimator.SetFloat("Horizontal", velocity.x);
-        //playerAnimator.SetFloat("Vertical", velocity.y);
-
+        // Set animation parameters based on movement
+        if (velocity != Vector2.zero)
+        {
+            playerAnimator.SetFloat("moveX", velocity.x);
+            playerAnimator.SetFloat("moveY", velocity.y);
+        }
     }
+
 
     //playerAnimator.SetFloat("Speed", velocity.sqrMagnitude);
 

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
     public DialogueManager dialogueManager;
     // Dictionary to keep track of emptied chests (using unique identifiers)
     private Dictionary<string, Dictionary<int, bool>> chestStates = new Dictionary<string, Dictionary<int, bool>>();
+
+    public Pathfinding Pathfinder { get; private set; }
+    public MyTilemapProvider TileProvider { get; private set; } // Assume you have some tile provider
 
     private void Awake()
     {
@@ -32,6 +37,8 @@ public class GameManager : MonoBehaviour
 
         // Ensure DialogueManager is available
         dialogueManager = FindObjectOfType<DialogueManager>();
+        Pathfinder = new Pathfinding();
+
         SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to sceneLoaded event
     }
 
@@ -40,10 +47,36 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe to avoid memory leaks
     }
 
+    BoundsInt GetTileMapDimensions(Tilemap tilemap)
+    {
+        BoundsInt bounds = tilemap.cellBounds;
+        int width = bounds.size.x;
+        int height = bounds.size.y;
+        // Output the size
+        Debug.Log("Tilemap Width: " + width);
+        Debug.Log("Tilemap Height: " + height);
+        return bounds;
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Call LoadCharactersForScene when a new scene is loaded
         LoadCharactersForScene(scene.name); // Load characters for the new scene
+        Tilemap groundTilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
+        Tilemap wallTilemap = GameObject.Find("Wall").GetComponent<Tilemap>();
+        if (groundTilemap != null && wallTilemap != null)
+        {
+            Debug.Log("Ground and Wall tilemaps loaded successfully.");
+            // Get dimensions of the tilemaps
+            BoundsInt groundBounds = GetTileMapDimensions(groundTilemap);
+            BoundsInt wallBounds = GetTileMapDimensions(wallTilemap);
+            Debug.Log("Tilemap Bounds: " + groundBounds);
+            TileProvider = new MyTilemapProvider(groundBounds, groundTilemap, wallTilemap);
+        }
+        else
+        {
+            Debug.LogWarning("Tilemaps not found in the scene.");
+        }
     }
     public void LoadCharactersForScene(string sceneName)
     {
